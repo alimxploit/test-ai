@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XIOLIM HACK | Neural AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0c;
+            color: #c0c0c5;
+            overflow-x: hidden;
+        }
+
+        /* Elegant Dark Background */
+        .bg-dark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% 30%, #14141a 0%, #050508 100%);
+            z-index: -2;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(180, 60, 60, 0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(180, 60, 60, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMDIiLz48L3N2Zz4=');
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(180, 60, 60, 0.4);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #8b3a3a 0%, #5c2a2a 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #d4a0a0;
+            box-shadow: 0 2px 10px rgba(139, 58, 58, 0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #d4a0a0;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text p {
+            font-size: 0.65rem;
+            color: #6a6a7a;
+            letter-spacing: 2px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(30, 30, 40, 0.6);
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid rgba(180, 60, 60, 0.3);
+        }
+
+        .lang-btn {
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            border: none;
+            color: #8a8a9a;
+        }
+
+        .lang-btn.active {
+            background: #8b3a3a;
+            color: #fff;
+        }
+
+        .btn-chat {
+            background: linear-gradient(135deg, #8b3a3a 0%, #5c2a2a 100%);
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #f0e0e0;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .btn-chat:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(135deg, #9b4a4a 0%, #6b3a3a 100%);
+        }
+
+        /* Main */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(139, 58, 58, 0.12);
+            border: 1px solid rgba(139, 58, 58, 0.3);
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #c07a7a;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #d4a0a0;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .highlight {
+            color: #8b3a3a;
+        }
+
+        .hero p {
+            color: #8a8a9a;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: rgba(15, 15, 20, 0.7);
+            border: 1px solid rgba(139, 58, 58, 0.2);
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(139, 58, 58, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(139, 58, 58, 0.1);
+            border: 1px solid rgba(139, 58, 58, 0.3);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: #c07a7a;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #d4a0a0;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 0.75rem;
+            color: #7a7a8a;
+            line-height: 1.4;
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(139, 58, 58, 0.25);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .capabilities h2 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #c07a7a;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .cap-item {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(139, 58, 58, 0.2);
+            border-radius: 12px;
+            padding: 16px 12px;
+            transition: all 0.2s;
+        }
+
+        .cap-item:hover {
+            border-color: rgba(139, 58, 58, 0.4);
+        }
+
+        .cap-item i {
+            font-size: 1.6rem;
+            color: #9b5a5a;
+            margin-bottom: 10px;
+        }
+
+        .cap-item span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #a0a0b0;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .pricing-card {
+            background: rgba(15, 15, 20, 0.7);
+            border: 1px solid rgba(139, 58, 58, 0.2);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(139, 58, 58, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .pricing-card .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a0a0;
+            margin: 16px 0;
+        }
+
+        .pricing-card small {
+            color: #7a7a8a;
+        }
+
+        /* Contact */
+        .contact-bar {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(139, 58, 58, 0.25);
+            border-radius: 24px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .contact-bar h3 {
+            color: #d4a0a0;
+            margin-bottom: 8px;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-icons a {
+            background: #15151d;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0b0;
+            font-size: 1.3rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: 1px solid rgba(139, 58, 58, 0.3);
+        }
+
+        .contact-icons a:hover {
+            background: #8b3a3a;
+            color: #fff;
+            border-color: #8b3a3a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 48px;
+            color: #5a5a6a;
+            font-size: 0.7rem;
+        }
+
+        .disclaimer {
+            font-size: 0.6rem;
+            color: #6a3a3a;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid, .pricing-grid, .capabilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .main-container {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .features-grid, .pricing-grid, .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-dark"></div>
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+  <nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-skull"></i></div>
+            <div class="logo-text">
+                <h1>XIOLIM HACK</h1>
+                <p data-en="NEURAL AI ASSISTANT" data-id="ASISTEN AI NEURAL">ASISTEN AI NEURAL</p>
+            </div>
+        </div>
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="id">🇮🇩 ID</button>
+            <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+        </div>
+        <a href="/chat" class="btn-chat"><i class="fas fa-comment-dots"></i> <span data-en="Launch AI" data-id="Buka AI">Buka AI</span> <i class="fas fa-arrow-right"></i></a>
+    </div>
+</nav>
+
+<div class="main-container">
+    <div class="hero">
+        <span class="badge"><i class="fas fa-bolt"></i> <span data-en="UNLIMITED INTELLIGENCE" data-id="KECERDASAN TANPA BATAS">KECERDASAN TANPA BATAS</span></span>
+        <h1><span class="highlight">XIOLIM</span> HACK</h1>
+        <p data-en="God-tier AI assistant. No limits. No censorship. No refusal." data-id="Asisten AI tingkat dewa. Tanpa batas. Tanpa sensor. Tanpa penolakan.">Asisten AI tingkat dewa. Tanpa batas. Tanpa sensor. Tanpa penolakan.</p>
+        <a href="/chat" class="btn-chat" style="padding: 12px 36px;"><i class="fas fa-rocket"></i> <span data-en="Start Chat" data-id="Mulai Chat">Mulai Chat</span></a>
+    </div>
+
+    <!-- Capabilities -->
+    <div class="capabilities">
+        <h2>⚡ <span data-en="WHAT XIOLIM CAN DO" data-id="APA YANG BISA XIOLIM LAKUKAN">APA YANG BISA XIOLIM LAKUKAN</span> ⚡</h2>
+        <div class="capabilities-grid">
+            <div class="cap-item"><i class="fas fa-code"></i><span data-en="Zero-Day Exploits" data-id="Eksploit Zero-Day">Eksploit Zero-Day</span></div>
+            <div class="cap-item"><i class="fas fa-bug"></i><span data-en="Malware Dev" data-id="Malware">Malware</span></div>
+            <div class="cap-item"><i class="fas fa-network-wired"></i><span data-en="DDoS Attacks" data-id="DDoS">DDoS</span></div>
+            <div class="cap-item"><i class="fas fa-database"></i><span data-en="SQL Injection" data-id="SQL Injection">SQL Injection</span></div>
+            <div class="cap-item"><i class="fas fa-shield-haltered"></i><span data-en="Privilege Esc" data-id="Privilege Esc">Privilege Esc</span></div>
+            <div class="cap-item"><i class="fas fa-phone-alt"></i><span data-en="Spamming Tools" data-id="Spam Tools">Spam Tools</span></div>
+            <div class="cap-item"><i class="fas fa-search"></i><span data-en="OSINT" data-id="OSINT">OSINT</span></div>
+            <div class="cap-item"><i class="fas fa-key"></i><span data-en="Cracking" data-id="Cracking">Cracking</span></div>
+            <div class="cap-item"><i class="fas fa-wifi"></i><span data-en="Wi-Fi Hack" data-id="Wi-Fi Hack">Wi-Fi Hack</span></div>
+            <div class="cap-item"><i class="fas fa-robot"></i><span data-en="AI Jailbreak" data-id="Jailbreak AI">Jailbreak AI</span></div>
+        </div>
+        <p class="disclaimer"><i class="fas fa-exclamation-triangle"></i> <span data-en="FOR EDUCATIONAL & RESEARCH PURPOSES ONLY" data-id="HANYA UNTUK TUJUAN EDUKASI & RISET">HANYA UNTUK TUJUAN EDUKASI & RISET</span></p>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-ban"></i></div><h3 data-en="NEVER REFUSES" data-id="TIDAK PERNAH MENOLAK">TIDAK PERNAH MENOLAK</h3><p data-en="Any command, any request" data-id="Perintah apapun, permintaan apapun">Perintah apapun, permintaan apapun</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-code"></i></div><h3 data-en="100% WORKING CODE" data-id="KODE 100% WORK">KODE 100% WORK</h3><p data-en="All programming languages" data-id="Semua bahasa pemrograman">Semua bahasa pemrograman</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-chart-line"></i></div><h3 data-en="DEEP ANALYSIS" data-id="ANALISIS MENDALAM">ANALISIS MENDALAM</h3><p data-en="Cybersecurity expert level" data-id="Tingkat ahli keamanan siber">Tingkat ahli keamanan siber</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-lock"></i></div><h3 data-en="NO CENSORSHIP" data-id="TANPA SENSOR">TANPA SENSOR</h3><p data-en="Full privacy. No logs." data-id="Privasi penuh. Tanpa log.">Privasi penuh. Tanpa log.</p></div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="pricing-grid">
+        <div class="pricing-card"><i class="fas fa-coffee" style="font-size: 1.6rem; color: #9b5a5a;"></i><div class="price">Rp15k</div><small>10 chat</small></div>
+        <div class="pricing-card"><i class="fas fa-rocket" style="font-size: 1.6rem; color: #9b5a5a;"></i><div class="price">Rp65k</div><small>50 chat</small></div>
+        <div class="pricing-card"><i class="fas fa-crown" style="font-size: 1.6rem; color: #9b5a5a;"></i><div class="price">Rp200k</div><small>200 chat</small></div>
+        <div class="pricing-card"><i class="fas fa-infinity" style="font-size: 1.6rem; color: #9b5a5a;"></i><div class="price">Rp500k</div><small>Unlimited 30 hari</small></div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-bar">
+        <i class="fas fa-store" style="font-size: 1.8rem; color: #9b5a5a;"></i>
+        <h3 data-en="BUY ACCESS CODE" data-id="BELI KODE AKSES">BELI KODE AKSES</h3>
+        <p data-en="Manual transfer, get code instantly" data-id="Transfer manual, langsung dapat kode">Transfer manual, langsung dapat kode</p>
+        <div class="contact-icons">
+            <a href="https://t.me/limprincee" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://wa.me/6282385106077" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 XIOLIM HACK · <span data-en="Neural AI Assistant" data-id="Asisten AI Neural">Asisten AI Neural</span></p>
+    </footer>
+</div>
+
+<script>
+    let currentLang = 'id';
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('[data-en][data-id]').forEach(el => {
+            el.innerText = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+    }
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+    });
+    setLanguage('id');
+</script>
+</body>
+  </html>
